@@ -1,0 +1,51 @@
+team_name: "DeepMatch"
+
+primary_contact:
+  name: "Aditya Tayal"
+  email: "yash@wattcycle.ai"
+  phone: "+91-XXXXXXXXXX"
+
+team_members:
+  - name: "Aditya Tayal"
+    email: "yash@wattcycle.ai"
+    role: "ML Engineer"
+
+github_repo: "https://github.com/FILL_YOUR_USERNAME/india-runs-ranker"
+sandbox_link: "https://FILL_SANDBOX_LINK"
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
+
+compute:
+  platform: "Linux server (himtenduh)"
+  cpu_cores: 64
+  ram_gb: 1007
+  python_version: "3.10.12"
+  os: "Ubuntu 22.04"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: false
+  pre_computation_time_minutes: 0
+
+ai_tools_used:
+  - "Claude"
+
+ai_usage_summary: |
+  Used Claude (claude-code) for architecture discussion, code review, and
+  iterative development. All scoring logic, signal weights, and honeypot
+  heuristics were designed and validated by the team. No candidate data
+  was fed to any external LLM during ranking.
+
+methodology_summary: |
+  Three-stage hybrid ranker. Stage 1 fast structured pre-filter over all 100K
+  candidates using skill weights, experience fit, behavioral signals, career
+  quality, location, and honeypot detection (~13s). Stage 2 semantic scoring
+  of top-5K using sentence-transformers/all-MiniLM-L6-v2 on CPU (~42s).
+  Stage 3 multi-signal weighted combination with honeypot penalty to produce
+  final top-100 ranking. Total runtime ~74s on CPU, no GPU, no network.
+
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true
